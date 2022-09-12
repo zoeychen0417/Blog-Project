@@ -1,0 +1,139 @@
+<head>
+    <link rel="stylesheet" href="./css/signin.css">
+</head>
+
+{{#if userInfo}}
+<div class="userAvatar">
+    <img src="./images/avatar/{{userInfo.avatar_icon}}" value="{{userInfo.avatar_icon}}" hidden>
+</div>
+{{/if}}
+
+{{#if userInfo}}
+{{!-- if there is user who signs up, website is gonna show update page --}}
+<div class="update_container">
+    <div>
+    <h3 id="title">Update Personal Information</h3>
+    <form action="./update" method="POST" id="signin_update">
+         <label for="username">Username:</label>
+         <input type="text" name="username" id="username" value="{{userInfo.username}}" oninput="Monitor(this)" onpropertychange="Monitor(this)">
+         <span id='unique_username'></span><br><br>
+
+         <label for="fname">First Name:</label>
+         <input type="text" name="fname" id="fname" value="{{userInfo.fname}}"><br><br>
+
+         <label for="lname">Last Name:</label>
+         <input type="text" name="lname" id="lname" value="{{userInfo.lname}}"><br><br>
+
+         <label for="birthday">Date of Birth</label>
+         <input type="date" name="birthday" id="birthday" min="1920-01-01" max="2021-6-11" value="{{userInfo.dob}}"> <br><br>
+
+         <label for="ps">Password:</label>
+         <input type="password" name="password"id="ps" placeholder="Change your password or not (8 characters minimum)" minlength="8"  onkeyup='check();'required>
+         <input type="checkbox" onclick="showPS()">Show Password<br><br>
+
+         <label for="reps">Re-enter Password:</label>
+         <input type="password" name="repassword" placeholder="Please confirm your password" id="reps" minlength="8" onkeyup='check();' required>
+         <span id='message'></span><br><br>
+
+         <label for="description">Description of yourself</label><br><br>
+         <textarea type="text" id="description" name="description" row="50" cols="70">{{userInfo.user_desc}}</textarea> <br><br>
+
+         <label>Choose Your Avatar:</label><br><br>
+         <label for="icon1"><img src="./images/avatar/boy.png" class="avatar"></label>
+         <input type="radio" id="icon1" name="avatar" value="boy.png">
+         <label for="icon2"><img src="./images/avatar/girl.png" class="avatar"></label>
+         <input type="radio" id="icon2" name="avatar" value="girl.png">
+         <label for="icon3"><img src="./images/avatar/man.png" class="avatar"></label>
+         <input type="radio" id="icon3" name="avatar" value="man.png">
+         <label for="icon4"><img src="./images/avatar/female.png" class="avatar"></label>
+         <input type="radio" id="icon4" name="avatar" value="female.png">
+         <label for="icon5"><img src="./images/avatar/old-m.png" class="avatar"></label>
+         <input type="radio" id="icon5" name="avatar" value="old-m.png">
+         <label for="icon6"><img src="./images/avatar/old-w.png" class="avatar"></label>
+         <input type="radio" id="icon6" name="avatar" value="old-w.png">
+         <label for="icon7"><img src="./images/avatar/people.png" class="avatar"></label>
+         <input type="radio" id="icon7" name="avatar" value="people.png">
+         <label for="icon8"><img src="./images/avatar/woman.png" class="avatar"></label>
+         <input type="radio" id="icon8" name="avatar" value="woman.png">
+         <label for="icon9"><img src="./images/avatar/sport-boy.png" class="avatar"></label>
+         <input type="radio" id="icon9" name="avatar" value="sport-boy.png">
+         <label for="icon10"><img src="./images/avatar/woman-2.png" class="avatar"></label>
+         <input type="radio" id="icon10" name="avatar" value="woman-2.png">
+         <label for="icon11"><img src="./images/avatar/student.png" class="avatar"></label>
+         <input type="radio" id="icon11" name="avatar" value="student.png">
+         <label for="icon12"><img src="./images/avatar/student-w.png" class="avatar"></label>
+         <input type="radio" id="icon12" name="avatar" value="student-w.png"><br><br><br>
+
+         <button type="submit" id="update">UPDATE!</button>
+    </form>
+         <a href="" id="deleteConfirm"><button class="deleteUser" id="deleteBtn">CANCELLATION!</button></a>
+    </div>
+</div>
+
+
+{{!-- if there is no user who signs up, website is gonna show sign in page --}}
+{{else}}
+<div class="signUp_container">
+    <div clsas="signUp">
+         <h3 id="title">Create Account</h3>
+         {{#if errorinfo}}
+         <span id="registerFailed">{{errorinfo}}</span>
+         {{/if}} 
+         <form action="./signIn" method="POST">
+
+         <label for="username" value="Username">Username:</label>&nbsp;
+         <input type="text" name="username" id="username" size="50" oninput="Monitor(this)" onpropertychange="Monitor(this)" required>
+         <span id='unique_username'></span><br><br>
+
+         <label for="fname">First Name:</label>
+         <input type="text" name="fname" id="fname" size="50" required><br><br>
+
+         <label for="lname">Last Name:</label>
+         <input type="text" name="lname" id="lname" size="50" required><br><br>
+
+         <label for="birthday">Date of Birth:</label><br>
+         <input type="date" name="birthday" id="birthday" size="50" min="1920-01-01" max="2021-6-11" required> <br><br>
+
+         <label for="ps">Password(8 characters minimum):</label><br>
+         <input type="password" name="password"id="ps" placeholder="Eight characters minimum"size="50" minlength="8" onkeyup='check();'required><br>
+         <input type="checkbox" onclick="showPS()">Show Password<br><br>
+
+         <label for="reps">Re-enter Password:</label><br>
+         <input type="password" name="repassword" placeholder="Please confirm your password" id="reps" size="50" minlength="8" onkeyup='check();' required>
+         <span id='message'></span><br><br>
+
+         <label for="description">Description of yourself:</label><br><br>
+         <textarea type="text" id="description" name="description" rows="5" cols="70" placeholder="Enter text here" required></textarea> <br><br>
+
+         <label>Choose Your Avatar:</label><br><br>
+         <label for="icon1"><img src="./images/avatar/boy.png" class="avatar"></label>
+         <input type="radio" id="icon1" name="avatar" value="boy.png">
+         <label for="icon2"><img src="./images/avatar/girl.png" class="avatar"></label>
+         <input type="radio" id="icon2" name="avatar" value="girl.png">
+         <label for="icon3"><img src="./images/avatar/man.png" class="avatar"></label>
+         <input type="radio" id="icon3" name="avatar" value="man.png">
+         <label for="icon4"><img src="./images/avatar/female.png" class="avatar"></label>
+         <input type="radio" id="icon4" name="avatar" value="female.png">
+         <label for="icon5"><img src="./images/avatar/old-m.png" class="avatar"></label>
+         <input type="radio" id="icon5" name="avatar" value="old-m.png">
+         <label for="icon6"><img src="./images/avatar/old-w.png" class="avatar"></label>
+         <input type="radio" id="icon6" name="avatar" value="old-w.png">
+         <label for="icon7"><img src="./images/avatar/people.png" class="avatar"></label>
+         <input type="radio" id="icon7" name="avatar" value="people.png">
+         <label for="icon8"><img src="./images/avatar/woman.png" class="avatar"></label>
+         <input type="radio" id="icon8" name="avatar" value="woman.png">
+         <label for="icon9"><img src="./images/avatar/sport-boy.png" class="avatar"></label>
+         <input type="radio" id="icon9" name="avatar" value="sport-boy.png">
+         <label for="icon10"><img src="./images/avatar/woman-2.png" class="avatar"></label>
+         <input type="radio" id="icon10" name="avatar" value="woman-2.png">
+         <label for="icon11"><img src="./images/avatar/student.png" class="avatar"></label>
+         <input type="radio" id="icon11" name="avatar" value="student.png">
+         <label for="icon12"><img src="./images/avatar/student-w.png" class="avatar"></label>
+         <input type="radio" id="icon12" name="avatar" value="student-w.png"><br><br><br>
+
+         <button type="submit" id="create">CREATE!</button>
+         </form>
+    </div>
+    
+</div>
+{{/if}}

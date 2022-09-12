@@ -1,0 +1,76 @@
+<head>
+    <link rel="stylesheet" href="./css/home.css">
+</head>
+
+<div class="home_container">
+ <div class="left">
+      <div class="mini-bar">
+      <p class="info"> Fantastic Articles</p>
+      <select class="sort_menu">
+         <option value="title" >Sort by article title</option>
+         <option value="name" >Sort by auther name</option>
+         <option value="date">Sort by post date</option>
+      </select>
+      </div>
+       {{!-- better version --}}
+       <div class="grid-other">
+           {{#each allInfo}}
+           <div class="card">
+               <a href="./articleDetails?article_id={{this.article_id}}">
+                  {{#if this.article_image}} 
+                  <img class="card-image" src="{{this.article_image}}" id="cover">
+                  {{else}}
+                  <img class="card-image defaultCover" src="">
+                  {{/if}}
+               </a>
+               <div class="card-body">
+                   <div class="little_body1">
+                      <h4>{{this.title}}</h4> 
+                      <p>{{this.post_date}}</p>  
+                   </div>
+                   <hr>
+                   <div class="little_body2">
+                      <img src="./images/avatar/{{this.avatar_icon}}" class="avatar_other"> 
+                      <p>{{this.username}}</p>   
+                   </div>
+                
+               </div>
+           </div>
+           {{/each}}
+       </div> 
+ </div>
+
+ 
+  <div class="right">
+     {{#if user}}
+     <p>{{user.username}}'s Articles</p>
+     {{#if userArticle}}
+     {{!-- better version --}}
+     <div class="grid-self">
+           {{#each userArticle}}
+           <div class="sub-card">
+               <a href="./articleDetails?article_id={{this.article_id}}" class="sub-card-body">
+                   <h4>{{this.title}}</h4>    
+                   <p>{{this.post_date}}</p>
+               </a>
+           </div>
+           {{/each}}
+     </div><br>
+     <div class="newArticleBtn">
+        <a href="./postNew"><button class="newArticleButton">Post New Article</button></a>
+     </div>
+     {{else}}
+     <p>Don't have any yet!</p >
+     <div class="newArticleBtn">
+        <a href="./postNew"><button class="newArticleButton">Post Your First Article</button></a>
+     </div>
+     {{/if}}
+     {{else}}
+     <div class="ad">
+            <img class="adv" id="adv1">
+            <img class="adv" id="adv2">
+     </div>
+     {{/if}}
+  </div>
+
+</div>

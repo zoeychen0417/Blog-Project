@@ -1,0 +1,266 @@
+*{
+    font-family: 'Rajdhani', sans-serif;
+}
+body{
+    background-image: url("../images/icon/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover; 
+}
+textarea{
+    background: transparent;
+    border: 1px solid rgb(95, 95, 95);
+    border-radius: 10px;
+}
+
+.foldComments {
+    display: none;
+}
+
+.mainArea {
+   width:100%;
+   display:flex;
+   flex-flow: column;
+   justify-items: center;
+}
+.like, .dislike {
+    background: none;
+    border: none;
+    padding: none;
+    filter: hue-rotate(180deg);
+}
+
+.clicked {
+    filter: none;
+}
+
+/*remove all list symbol*/
+li {
+    list-style-type: none;
+}
+
+/* article body */
+.articleBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.articleBody>hr{
+    width:90%;
+    border: 1px solid rgb(95, 95, 95);
+}
+
+.article_title{
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+}
+.articleBody>div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin:20px;
+}
+#articleBody_div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin:10px 80px;
+}
+/* each person's comment layout */
+.onePersonComment{
+    display: grid;
+    grid-template-columns: 1fr 22fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+    "icon comment"
+    "icon function";
+    margin:5px 30px;
+}
+.personIcon{
+    grid-area:icon;
+}
+.personComment{
+    grid-area:comment;
+    /* margin-right:20px; */
+};
+.commentFunction{
+    grid-area:function;
+}
+/* edit, reply, delete button*/
+#editBtn>img{
+    width:30px;
+    height:30px;
+    mix-blend-mode: multiply;
+}
+.commentFunction .replyBtn{
+    border: none;
+    margin-top: 5px;
+    background: none;
+    cursor: pointer;
+}
+.commentFunction form button{
+    width:50px;
+    border-radius: 20px;
+    border:1px solid #bbb;
+    background-color:rgb(146, 146, 146);
+    opacity: 0.9;
+    color:white;
+    font-weight:bolder;
+    padding:5px 5px;
+    float: right;
+}
+.commentFunction form div{
+    width:min-content;
+}
+.commentFunction form button:hover{
+    animation-name: shine;
+    animation-duration: 350ms;
+    cursor: pointer;
+}
+.replyBtn>img{
+    width:18px;
+    height:18px;
+    padding:0%;
+    background: transparent;
+    mix-blend-mode: multiply;
+}
+.commentFunction>a>img{
+    width:18px;
+    height:18px;
+    mix-blend-mode: multiply;
+}
+/* show/hide comments buttons*/
+.postComment form button{
+    width:50%;
+    border-radius: 20px;
+    border:1px solid #bbb;
+    background-color:rgb(146, 146, 146);
+    opacity: 0.9;
+    color:white;
+    font-weight:bolder;
+    padding:5px 5px;
+}
+.postComment form button:hover{
+    animation-name: shine;
+    animation-duration: 350ms;
+    cursor: pointer;
+}
+#displayComment>img, #makeComments>img{
+    width: 30px;
+    height:30px;
+    background: transparent;
+    mix-blend-mode: multiply;
+}
+#displayComment{
+    cursor: pointer;
+}
+#makeComments>img{
+    width: 40px;
+    height:40px;
+    background: transparent;
+    mix-blend-mode: multiply;
+}
+#makeComments{
+    cursor: pointer;
+}
+
+#displayComment, #makeComments{
+    background: transparent;
+    border:none;
+}
+.comments{
+    margin-left:50px;
+}
+#makeComments{
+    margin-left:45px
+}
+.postComment>form{
+    margin:20px 50px;
+}
+.postComment form button {
+    width:70px;
+    margin-left:310px;
+    float:right;
+}
+.postComment form div{
+    width:min-content;
+}
+/* comment header*/
+.comment_header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:flex-start;
+    margin:0px 50px;
+}
+.comment_header>h2{
+    font-family:'Lily Script One', cursive;
+    font-size:25px;
+    font-weight:bolder;
+    text-align:center;
+    color:grey;
+}
+@keyframes shine {
+    0% {
+      background: linear-gradient(
+        30deg, 
+        hsl(260, 85%, 95%) 0%, 
+        hsl(270, 2%, 57%) 25%
+      );
+    }
+  
+    25% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 25%, 
+        hsl(270, 2%, 57%)  50%);
+    }
+  
+    50% {
+      background: linear-gradient(
+        30deg,
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 50%, 
+        hsl(270, 2%, 57%)  75%); 
+    }
+  
+    75% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 75%, 
+        hsl(270, 2%, 57%)  100%); 
+    }
+  
+    100% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 100%); 
+    }
+  }
+  /* animation */
+@keyframes spaceboots {
+    0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+    10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+    30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+    40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
+    50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+    70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+    80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+    90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+    100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
+}
+.avatar_display:hover,
+.avatar_display:focus {
+    animation-name: spaceboots;
+    animation-duration: 0.8s;
+    transform-origin:50% 50%;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+

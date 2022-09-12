@@ -1,0 +1,322 @@
+<head>
+    <script type="text/javascript">
+        window.addEventListener("load", async function () {
+            const currentUser = document.querySelector("#currentUser");
+            const currentArticleId = document.querySelector(".articleBody").children[0].innerHTML;
+            
+            const eachCommentDivAry = document.querySelectorAll(".eachComment");
+            const commentFunctionDivAry = document.querySelectorAll(".commentFunction");//all the functionDiv of each comment
+            
+            //if one user logins, add the delete btn of comments belonging to the user or user's article
+            if (currentUser) {
+                const checkAuthorJson = await fetch(`./checkAuthor?currentArticleId=${currentArticleId}`);
+                const checkAuthor = await checkAuthorJson.json();
+                //if the user is the current article's author, adding the 'Edit Article' btn
+                const editBtn = document.querySelector("#editBtn");
+        
+                if (checkAuthor.isAuthor) {
+                    editBtn.style.display = "inline-block";
+                }
+                //if the comment belongs to the user or user's article, it can be deleted by adding the 'Delete' btn
+                for (const eachCommentFunctionDiv of commentFunctionDivAry) {
+                    if (eachCommentFunctionDiv.classList[2] == currentUser.innerHTML || checkAuthor.isAuthor) {
+                        const eachCommentId = eachCommentFunctionDiv.classList[1];
+                        eachCommentFunctionDiv.innerHTML += `<a href="./deleteComment?comment_id=${eachCommentId}&article_id=${currentArticleId}"><img src="./images/icon/delete.png"></a>`;
+                    }
+                }
+            }
+
+            //if no user login, hide all the reply btn
+            if (!currentUser) {
+                const replyBtnAry = document.querySelectorAll(".replyBtn");
+                for (const eachBtn of replyBtnAry) {
+                    eachBtn.style.display = "none";
+                }
+            }
+
+            //Select all the 'like' and 'dislike' btns
+            const likeBtnAry = document.querySelectorAll(".like");
+            const dislikeBtnAry = document.querySelectorAll(".dislike");
+
+            //config of 'like' and 'dislike' btns
+            if (currentUser) {
+                for (const likeBtn of likeBtnAry) {
+                    //check user's existing opion on each 'like' btn
+                    const opionJson = await fetch(`./checkOpinion?comment_id=${likeBtn.classList[1]}`);
+                    const opion = await opionJson.json();
+                    //if exist, set the btn to be clicked
+                    if (opion) {
+                        if (opion.up == 1) {
+                            likeBtn.classList.add("clicked");
+                            travelOpBtnAry(likeBtn, dislikeBtnAry);
+                        }
+                    }
+
+                    //option on 'like' btn
+                    likeBtn.addEventListener("click", async function () {
+                        //get the changing num_of_like
+                        const likeNumJson = await fetch(`./upComment?comment_id=${likeBtn.classList[1]}`);
+                        const likeNum = await likeNumJson.json();
+                        
+                        likeBtn.classList.toggle("clicked");
+                        travelOpBtnAry(likeBtn, dislikeBtnAry);
+
+                        likeBtn.children[0].innerHTML = `${likeNum.num_of_like}`;
+                    });
+                }
+
+                //when the user click one of the 'dislike' btn
+                for (const dislikeBtn of dislikeBtnAry) {
+                    //check user's existing opion on each 'dislike' btn
+                    const opionJson = await fetch(`./checkOpinion?comment_id=${dislikeBtn.classList[1]}`);
+                    const opion = await opionJson.json();
+                    //if exist, set the btn to be clicked
+                    if (opion) {
+                        if (opion.down == 1) {
+                            dislikeBtn.classList.add("clicked");
+                            travelOpBtnAry(dislikeBtn, likeBtnAry);
+                        }
+                    }
+
+                    //option on 'dislike' btn
+                    dislikeBtn.addEventListener("click", async function () {
+                        //get the changing num_of_dislike
+                        const dislikeNumJson = await fetch(`./downComment?comment_id=${dislikeBtn.classList[1]}`);
+                        const dislikeNum = await dislikeNumJson.json();
+
+                        dislikeBtn.classList.toggle("clicked");
+                        travelOpBtnAry(dislikeBtn, likeBtnAry);
+
+                        dislikeBtn.children[0].innerHTML = `${dislikeNum.num_of_dislike}`;
+                    });
+                }
+            }
+
+        });
+
+        //All the comments under the current aritcle could be hidden
+        function foldComments() {
+            const comments = document.querySelector(".comments");
+            const displayCommentBtn = document.querySelector("#displayComment");
+            comments.classList.toggle("foldComments");
+            if (displayCommentBtn.innerHTML == `<img src="./images/icon/expands.png">`) {
+                displayCommentBtn.innerHTML = `<img src="./images/icon/collapse.png">`;
+            }
+            else {
+                displayCommentBtn.innerHTML = `<img src="./images/icon/expands.png">`;
+            }
+        }
+
+        //when click the 'Make New Comments', create the textArea
+        function postNewComments() {
+            const postCommentDiv = document.querySelector(".postComment");
+            document.querySelector("#makeComments").style.display = "none";
+
+            const hideNewCommentBtn = document.createElement("button");
+            hideNewCommentBtn.innerHTML = `<img src="./images/icon/comment-icon.jpg">`;
+            hideNewCommentBtn.setAttribute("id","makeComments");
+            hideNewCommentBtn.setAttribute("onclick", "hideNewComment()");
+            postCommentDiv.appendChild(hideNewCommentBtn);
+
+            const newCommentForm = document.createElement("form");
+            newCommentForm.innerHTML = `
+                <div>
+                <textarea name="newComment" cols="70" rows="7" required></textarea><br>
+                <input type="hidden" name="article_id" value={{articleDetails.article_id}}>
+                <input type="hidden" name="user_id" value={{user.user_id}}>
+                <button type="submit">Post</button></div>`;
+
+            newCommentForm.setAttribute("action", "./postNewComment");
+            newCommentForm.setAttribute("method", "POST");
+            postCommentDiv.appendChild(newCommentForm);
+        }
+
+        //when click each 'Reply', create the textArea after that comment!
+        function replyComment(eachCommentId) {
+            const commentFunctionDivAry = document.querySelectorAll(".commentFunction");
+            for ( eachCommentFunctionDiv of commentFunctionDivAry) {
+                if (eachCommentFunctionDiv.classList[1] == eachCommentId) {
+                    eachCommentFunctionDiv.children[2].style.display = "none";
+                    
+                    const hideReplyBtn = document.createElement("button");
+                    hideReplyBtn.innerHTML = `<img src="./images/icon/reply.png">`;
+                    hideReplyBtn.setAttribute("onclick", `hideReplyArea(${eachCommentId})`);
+                    hideReplyBtn.setAttribute("class","replyBtn");
+                    eachCommentFunctionDiv.appendChild(hideReplyBtn);
+                    eachCommentFunctionDiv.insertBefore(hideReplyBtn, eachCommentFunctionDiv.children[3]);
+
+                    const replyForm = document.createElement("form");
+
+                    replyForm.innerHTML = `
+                        <div>
+                        <textarea name="replyComment" cols="50" rows="5" required ></textarea><br>
+                        <input type="hidden" name="parent_comment_id" value=${eachCommentId}>
+                        <input type="hidden" name="article_id" value={{articleDetails.article_id}}>
+                        <input type="hidden" name="user_id" value={{user.user_id}}>
+                        <button type="submit">Reply</button></div>`;
+                    
+                    replyForm.setAttribute("action", "./replyComment");
+                    replyForm.setAttribute("method", "POST");
+                    eachCommentFunctionDiv.appendChild(replyForm);
+                }
+            }
+        }
+
+        //when click one opinion btn, its inverse btn needs to be disabled
+        function travelOpBtnAry(aimBtn, invBtnAry) {
+            for (const invBtn of invBtnAry) {
+                if (aimBtn.classList[1] == invBtn.classList[1]) {
+                    if (aimBtn.classList.contains("clicked")) {
+                        invBtn.setAttribute("disabled", "disabled");
+                    } else {
+                        invBtn.removeAttribute("disabled");
+                    }
+                }
+            }
+        }
+
+        //When user is replying, the textArea can be hidden
+        function hideReplyArea(commentId) {
+            const commentFunctionDivAry = document.querySelectorAll(".commentFunction");
+            for (eachCommentFunctionDiv of commentFunctionDivAry) {
+                if (eachCommentFunctionDiv.classList[1] == commentId) {
+                    eachCommentFunctionDiv.lastChild.remove();
+                    eachCommentFunctionDiv.children[2].style.display = "inline-block";
+                    eachCommentFunctionDiv.children[3].remove();
+                }
+            }
+        }
+
+        //When user is editing a new comment, the textArea can be hidden
+        function hideNewComment() {
+            const postCommentDiv = document.querySelector(".postComment");
+            document.querySelector("#makeComments").style.display = "inline-block";
+            let childNodes = postCommentDiv.childNodes;
+            for (let i = childNodes.length - 1; i >= 0; i--) {
+                postCommentDiv.removeChild(childNodes[i]);
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="./css/article.css" type="text/css">
+</head>
+
+
+{{!-- show the article details --}}
+<div class="mainArea">
+
+    <div class="articleBody">
+        {{#if articleDetails}}
+        <span hidden>{{articleDetails.article_id}}</span>
+        <div>
+             <span class="article_title">{{articleDetails.title}}</span> &nbsp;&nbsp;&nbsp;
+             <a id="editBtn" style="display: none" href="./updateNew?article_id={{articleDetails.article_id}}">
+                 <img src="./images/icon/edit-icon.png">
+            </a>
+        </div>
+        <p>
+            <i>ARTICLE BY <strong>{{articleDetails.username}}</strong> ON {{articleDetails.post_date}}</i> 
+            <br>
+        </p>
+        <div id="articleBody_div">{{{articleDetails.article_content}}}</div>
+        {{else}}
+        <p>No details!</p>
+        {{/if}}
+         <hr><br>
+    </div>
+
+    
+    {{!-- show all comments under this article --}}
+    <div class="comment_header">
+         <button onclick="foldComments()" id="displayComment"><img src="./images/icon/collapse.png"></button>
+    </div>
+    <div class="comments">
+        <ul>
+            {{#if commentsAry}}
+            {{#each commentsAry}}
+            <li>
+                <div class="eachComment">
+                    <div class="onePersonComment">
+                        <div class="personIcon">
+                            <img src="./images/avatar/{{this.avatar_icon}}" width="40px">
+                        </div>
+                        <div class="personComment">
+                             <strong>{{this.username}}</strong><i> {{this.comment_date}}</i>
+                             <br>{{this.comment_content}}
+                        </div>
+                        <div class="commentFunction {{this.comment_id}} {{this.username}}">
+                           <button class="like {{this.comment_id}}">👍<span
+                                   class="likeNum">{{this.num_of_like}}</span></button>
+                           <button class="dislike {{this.comment_id}}">👎<span
+                                   class="dislikeNum">{{this.num_of_dislike}}</span></button>
+                           <button class="replyBtn" onclick="replyComment({{this.comment_id}})"><img src="./images/icon/reply.png"></button>
+                        </div>
+                    </div>
+
+                    <ul>
+                        {{#each this.subComments}}
+                        <li>
+                            <div class="eachComment">
+                                <div class="onePersonComment">
+                                    <div class="personIcon">
+                                        <img src="./images/avatar/{{this.avatar_icon}}" width="40px">
+                                    </div>
+                                    <div class="personComment">
+                                        <strong>{{this.username}}</strong><i> {{this.comment_date}}</i>
+                                        <br>{{this.comment_content}}
+                                    </div>
+                                    <div class="commentFunction {{this.comment_id}} {{this.username}}">
+                                        <button class="like {{this.comment_id}}">👍<span
+                                                class="likeNum">{{this.num_of_like}}</span></button>
+                                        <button class="dislike {{this.comment_id}}">👎<span
+                                                class="dislikeNum">{{this.num_of_dislike}}</span></button>
+                                        <button class="replyBtn" onclick="replyComment({{this.comment_id}})"><img src="./images/icon/reply.png"></button>
+                                    </div>
+                                </div>
+                                <ul>
+                                    {{#each this.subComments}}
+                                    <li>
+                                        <div class="eachComment">
+                                            <div class="onePersonComment">
+                                                <div class="personIcon">
+                                                     <img src="./images/avatar/{{this.avatar_icon}}" width="40px">
+                                                </div>
+                                                <div class="personComment">
+                                                     <strong>{{this.username}}</strong><i> {{this.comment_date}}</i>
+                                                     <br>{{this.comment_content}}
+                                                </div>
+                                                <div class="commentFunction {{this.comment_id}} {{this.username}}">
+                                                    <button class="like {{this.comment_id}}">👍<span
+                                                            class="likeNum">{{this.num_of_like}}</span></button>
+                                                    <button class="dislike {{this.comment_id}}">👎<span
+                                                            class="dislikeNum">{{this.num_of_dislike}}</span></button>
+                                                 </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </li>
+            <br>
+            {{/each}}
+        </ul>
+
+
+        {{else}}
+        <p>No comment for this article!</p>
+        {{/if}}
+    </div>
+
+    {{!-- make new comment--}}
+    {{#if user}}
+    <div class="makeComment_div">
+        <button id="makeComments" onclick="postNewComments()"><img src="./images/icon/comment-icon.jpg"></button>
+        <div class="postComment"></div>
+    </div>
+    {{/if}}
+
+</div>

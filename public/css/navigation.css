@@ -1,0 +1,163 @@
+body{
+    margin:0px 0px 0px 0px;
+}
+#currentUser{
+    font-weight: bolder;
+    color:rgb(60, 68, 77);
+    font-size: large;
+
+}
+.inBar button, .outBar button{
+    border-radius: 20px;
+    border:1px solid #bbb;
+    background-color:rgb(146, 146, 146);
+    opacity: 0.9;
+    font-weight:bolder;
+    color:white;
+    font-size: 15px;
+}
+
+.inBar button:hover,.outBar button:hover{
+    animation-name: shine;
+    animation-duration: 350ms;
+    cursor: pointer;
+}
+@keyframes shine {
+    0% {
+      background: linear-gradient(
+        30deg, 
+        hsl(260, 85%, 95%) 0%, 
+        hsl(270, 2%, 57%) 25%
+      );
+    }
+  
+    25% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 25%, 
+        hsl(270, 2%, 57%)  50%);
+    }
+  
+    50% {
+      background: linear-gradient(
+        30deg,
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 50%, 
+        hsl(270, 2%, 57%)  75%); 
+    }
+  
+    75% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 75%, 
+        hsl(270, 2%, 57%)  100%); 
+    }
+  
+    100% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 100%); 
+    }
+  }
+
+.header{
+    grid-area: header;
+    display: grid;
+    grid-template-areas: 
+    ". logo bar";
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-between;
+    border-bottom: 0.1px solid rgb(209, 209, 209);
+    position:sticky;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    margin: 0px;
+    background-color: whitesmoke;
+    z-index: 3;
+ }
+ .logo{
+    align-self: center;
+    justify-self: center;
+    grid-area: logo; 
+    position: relative;
+    display: inline-block;
+    background-color: whitesmoke;
+ }
+ 
+.front{
+    width: 160px;
+    height: 130px;
+    mix-blend-mode: multiply;
+}
+
+.avatar_display{
+    width: 50px;
+    height: 50px;
+}
+.avatar_other{
+    width: 15%;
+    height: 15%;
+}
+.icon{
+    display: flex;
+    align-content: space-between;
+    justify-content: space-between;
+}
+
+.inBar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    grid-area: bar;
+    margin-right: 10px;
+}
+.inBar>span{
+    color: darkgray;
+    font-weight: bolder;
+}
+.outBar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:flex-end;
+    grid-area: bar;
+    margin-right: 10px;
+    background-color: whitesmoke;
+
+}
+.outBar>a{
+    color: black;
+    mix-blend-mode: multiply;
+    background-color: none;
+}
+.out{
+    color:black;
+}
+
+/* animation */
+@keyframes spaceboots {
+    0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+    10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+    30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+    40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
+    50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+    70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+    80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+    90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+    100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
+}
+.avatar_display:hover,
+.avatar_display:focus {
+    animation-name: spaceboots;
+       animation-duration: 0.8s;
+    transform-origin:50% 50%;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}

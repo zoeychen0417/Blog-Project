@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise Two - Server-side cookies</title>
+    <link rel="stylesheet" href="./css/navigation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">
+
+    {{!-- Joann part --}}
+    <script src="https://cdn.tiny.cloud/1/8f0tagpjvdj05l7hw3qmhd3m3wks18svjpct5lq1karfs8pv/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script type="text/javascript" src="./js/functions.js"></script>
+
+    
+    {{!-- Zoey part --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="./js/functionsZoey.js"></script>
+
+
+
+
+</head>
+
+<body>
+
+<div class="header">
+    <a href="./" class="logo">
+    <img src="../images/icon/logo.gif" class="front">
+    </a>
+    {{#if user}}
+    <div class="inBar">
+            <a href="./sign_in"><img src="./images/avatar/{{user.avatar_icon}}" class="avatar_display"></a> &nbsp;
+            <span id="currentUser">{{user.username}}</span> &nbsp; &nbsp; &nbsp;
+            <a href="./logout" class="out"><button>LOG OUT</button></a><br>
+    </div>
+    {{else}} 
+    <div class="outBar">
+            <a href="./login"><button>LOG IN</button></a> &nbsp; &nbsp; &nbsp;
+            <a href="./sign_in"><button>SIGN IN</button></a>
+    </div>
+    {{/if}}
+ </div>
+
+ {{{body}}}
+
+ </body>
+
+</html>

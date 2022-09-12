@@ -1,0 +1,117 @@
+*{
+    font-family: 'Rajdhani', sans-serif;
+}
+body{
+  background-image: url("../images/icon/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; 
+}
+  button{
+      border-radius: 20px;
+      border:1px solid #bbb;
+      background-color:rgb(146, 146, 146);
+      opacity: 0.9;
+      color:white;
+      font-weight:bolder;
+      font-size: large;
+  }
+  
+  button:hover{
+    animation-name: shine;
+    animation-duration: 350ms;
+    cursor: pointer;
+  } 
+  .edit{
+      margin: 20px;
+  }
+  #updateButton{
+    position: relative;
+    width: 25%;
+    margin: auto;
+  }
+  #deleteArticle{
+      position: relative;
+      width: 25%;
+      top:20px;
+      margin: auto;
+      margin-bottom: 20px;
+  }
+  #postButton{
+      width: 10%;
+      margin:auto;
+      font-size:20px
+  }
+  .editContainer{
+      margin:20px 20px;
+      position: relative;
+  }
+  .tox-tinymce{
+    outline:none;
+    border:1px solid #bbb;
+    border-radius: 20px;
+    margin:auto;
+    position: relative;
+
+  }
+  #titlePost,#titleUpdate{
+    width:40%;
+    height:20px;
+    cursor: pointer;
+    margin: auto;
+    outline:none;
+    border:1px solid #bbb;
+    border-radius: 20px;
+  }
+  #titlePost:focus,#titleUpdate:focus{
+    border-color:cornflowerblue;
+  }
+  .edit form{
+      display: flex;
+      flex-direction: column;
+  }
+  label{
+      text-align: center;
+      font-size: large;
+      font-weight: bolder;
+  }
+
+  @keyframes shine {
+    0% {
+      background: linear-gradient(
+        30deg, 
+        hsl(260, 85%, 95%) 0%, 
+        hsl(270, 2%, 57%) 25%
+      );
+    }
+  
+    25% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 25%, 
+        hsl(270, 2%, 57%)  50%);
+    }
+  
+    50% {
+      background: linear-gradient(
+        30deg,
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 50%, 
+        hsl(270, 2%, 57%)  75%); 
+    }
+  
+    75% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 75%, 
+        hsl(270, 2%, 57%)  100%); 
+    }
+  
+    100% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 100%); 
+    }
+  }

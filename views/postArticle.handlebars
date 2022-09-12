@@ -1,0 +1,42 @@
+<head>
+     <link rel="stylesheet" href="./css/wysiwyg.css">
+</head>
+<div class="editContainer">
+{{#if updateArticleDetail}}
+<div class="edit">
+
+<form action="./updateNew" method="POST">
+    <label for="titleUpdate">Title: </label>
+    <input id="titleUpdate" type="text" size="50" name="titleUpdate" value="{{updateArticleDetail.title}}" required><br><br>
+    <label for="contentUpdate">Content: </label>   
+    <textarea id="contentUpdate" name="contentUpdate" required>{{updateArticleDetail.article_content}}</textarea><br>
+    <input name="image" type="file" id="upload" style="display:none;" onchange="">
+    <input name="imageCoverUpdate" value="" id="updateCover" hidden>
+    <input name="articleID" value="{{updateArticleDetail.article_id}}" hidden>
+    <button type="submit" id="updateButton">UPDATE!</button>
+</form>
+
+<form action="./deleteArticle" method="GET">
+     <input value={{updateArticleDetail.article_id}} name="article_id" hidden>
+     <button type="submit" id="deleteArticle">DELETE!</button>
+</form>
+
+</div>
+
+{{else}}
+
+<div class="edit">
+<form action="./postNew" method="POST" novalidate>  
+   <label for="titlePost">Title: </label>
+   <input id="titlePost" type="text" size="50" name="titlePost" required><br><br>
+   <label for="contentNew">Content: </label>
+   <textarea id="contentNew" name="contentNew" placeholder="Content..." required></textarea><br>
+   <input name="image" type="file" id="upload" style="display:none;" onchange="">
+   <input name="imageCover" value="" id="storeCover" hidden>
+   <button type="submit" id="postButton">POST!</button>
+</form>
+</div>
+{{/if}}
+</div>
+
+

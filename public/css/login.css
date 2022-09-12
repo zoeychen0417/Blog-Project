@@ -1,0 +1,167 @@
+*{
+    font-family: 'Rajdhani', sans-serif;
+}
+
+button{
+    border-radius: 20px;
+    border:1px solid #bbb;
+    background-color:rgb(146, 146, 146);
+    opacity: 0.9;
+    color:white;
+    font-weight:bolder;
+}
+
+button:hover{
+    animation-name: shine;
+    animation-duration: 350ms;
+    cursor: pointer;
+}
+body{
+    background-image: url("../images/icon/bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 5;
+    height:800px;
+}
+.login_container{
+    height:500px;
+    display: grid;
+    grid-template-columns: 1.8fr 2fr 1.8fr;
+    grid-template-rows:auto;
+    grid-template-areas: 
+    ". r .";
+}
+.login_container div form label,
+.login_container div form,
+.login_container div h1,
+.login_container div p,
+.login_container div a{
+    background-color:lightgray;
+    font-size:large;
+    padding-left:20px;
+    padding-right:20px;
+}
+.login_container div h1{
+    font-family:'Lily Script One', cursive;
+    font-size:35px;
+    font-weight:bolder;
+    text-align:center;
+    color:rgb(80, 80, 80);
+}
+.login_container>div{
+    grid-area: r;  
+    background-color:lightgray;
+    opacity: 0.8;
+    justify-content: center;
+    padding:10px;
+    margin-top:100px;
+    border-radius: 5px;
+    -webkit-box-shadow:0 0 20px rgb(105, 105, 105);
+    -moz-box-shadow:0 0 20px rgb(105, 105, 105);
+    box-shadow:0 0 20px rgb(105, 105, 105);
+}
+.login_container div input{
+ padding:15px 20px;
+ width:100%;
+ outline:none;
+ border:1px solid #bbb;
+ border-radius:20px;
+ display:inline-block;
+ -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+         box-sizing:border-box;
+        
+}
+.login_container div input:focus{
+    border-color:cornflowerblue;
+    cursor: pointer;
+}
+.login_container div form button{
+    width:90px;
+    float:right;
+    font-size: large;
+}
+.login_container div form button[type=submit]:hover {
+    animation-name: shine;
+    animation-duration: 350ms;
+    cursor: pointer;
+}
+.login_container div p{
+    color:black;
+    text-align: center;
+    font-weight: bolder;
+}
+.newAccount{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0px;
+}
+.newAccount>p{
+    color:red;
+    text-align: center;
+}
+#createAccount{
+    width: 40px;
+    height: 40px;
+    mix-blend-mode: multiply;
+    border-radius: 50%; 
+    margin-top:5px;  
+}
+#createAccount:hover {
+   
+    
+}
+@keyframes shine {
+    0% {
+      background: linear-gradient(
+        30deg, 
+        hsl(260, 85%, 95%) 0%, 
+        hsl(270, 2%, 57%) 25%
+      );
+    }
+  
+    25% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 25%, 
+        hsl(270, 2%, 57%)  50%);
+    }
+  
+    50% {
+      background: linear-gradient(
+        30deg,
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 50%, 
+        hsl(270, 2%, 57%)  75%); 
+    }
+  
+    75% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 75%, 
+        hsl(270, 2%, 57%)  100%); 
+    }
+  
+    100% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 100%); 
+    }
+  }
+
+/* media query */
+@media only screen and (max-width: 800px) {
+    .login_container{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows:auto;
+        grid-template-areas: 
+        "r";
+        margin:10px
+    }
+}  
+

@@ -1,0 +1,248 @@
+*{
+    font-family: 'Rajdhani', sans-serif;
+}
+body{
+    background-image: url("../images/icon/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover; 
+}
+button{
+    border-radius: 20px;
+    border:1px solid #bbb;
+    background-color:rgb(146, 146, 146);
+    opacity: 0.9;
+    font-weight:bolder;
+    color:white;
+    font-size:18px;
+}
+
+button:hover{
+    animation-name: shine;
+    animation-duration: 350ms;
+    cursor: pointer;
+}
+@keyframes shine {
+    0% {
+      background: linear-gradient(
+        30deg, 
+        hsl(260, 85%, 95%) 0%, 
+        hsl(270, 2%, 57%) 25%
+      );
+    }
+  
+    25% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 25%, 
+        hsl(270, 2%, 57%)  50%);
+    }
+  
+    50% {
+      background: linear-gradient(
+        30deg,
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 50%, 
+        hsl(270, 2%, 57%)  75%); 
+    }
+  
+    75% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 75%, 
+        hsl(270, 2%, 57%)  100%); 
+    }
+  
+    100% {
+      background: linear-gradient(
+        30deg, 
+        hsl(270, 2%, 57%)  0%, 
+        hsl(260, 85%, 95%) 100%); 
+    }
+  }
+
+.avatar{
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+}
+#registerFailed{
+    color: black;
+    display:flex;
+    justify-content: center;
+}
+.userAvatar{
+    display: flex;
+    float:right;
+}
+
+/* Sign Up Page & 
+   update information Page*/
+.signUp_container{
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr;
+    grid-template-areas: 
+    ". r .";
+}
+.update_container{
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr;
+    grid-template-areas: 
+    ". r .";
+}
+.signUp_container>div, 
+.update_container>div{
+    grid-area: r;  
+    background-color: lightgray;
+    opacity: 0.8;
+    width: 100%;
+    justify-content: center;
+    margin-top:50px;
+    margin-bottom:50px;
+    border-radius: 5px;
+    -webkit-box-shadow:0 0 30px rgb(80,80,80);
+    -moz-box-shadow:0 0 30px rgb(80,80,80);
+    box-shadow:0 0 30px rgb(80,80,80);
+
+}
+.signUp_container div h3
+.signUp_container div form,
+.signUp_container div label,
+.signUp_container div span{
+    background-color: lightgray;
+}
+.update_container div #title,
+.update_container div #signin_update,
+.update_container div #signin_update label{
+    background-color: lightgray;
+}
+.signUp_container div h3,
+.signUp_container div form,
+.signUp_container div span,
+.update_container div h3,
+.update_container div form,
+.update_container div span{
+    padding-left:20px;
+    padding-right:20px;
+}
+
+.avatar{
+    background-color: transparent;
+}
+.avatar:hover{
+    filter: drop-shadow(0 0 0.75rem lightgray);
+    transform: scale(1.2);
+}
+.signUp_container div input,textarea, 
+.update_container div input,textarea {
+ padding:15px 10px;
+ width:100%;
+ outline:none;
+ border:1px solid #bbb;
+ border-radius:20px;
+ display:inline-block;
+ -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+         box-sizing:border-box;
+    -webkit-transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+     -ms-transition:0.2s ease all;
+      -o-transition:0.2s ease all;
+         transition:0.2s ease all;
+        
+}
+.signUp_container div form input[type=text]:focus,
+.signUp_container div form input[type=date]:focus,
+.signUp_container div form textarea[type=text]:focus,
+.signUp_container div form input[type="password"]:focus,
+.update_container div form input[type=text]:focus,
+.update_container div form input[type=date]:focus,
+.update_container div form textarea[type=text]:focus,
+.update_container div form input[type="password"]:focus {
+    border-color:cornflowerblue;
+    cursor: pointer;
+}
+.signUp_container div form input[type=radio],
+.update_container div form input[type=radio]{
+    cursor: pointer;
+    width:auto;
+}
+.signUp_container div form input[type=radio]:hover,
+.update_container div form input[type=radio]:hover{
+    transform: scale(1.3);
+}
+.signUp_container div form input[type=checkbox], 
+.update_container div form input[type=checkbox]{
+    width:10px;
+}
+form span#unique_username, form span#message{
+    float: right;
+    padding-right: 10px;
+}
+.signUp_container div form button[type=submit], 
+.update_container div form button[type=submit] {
+    width:30%;
+    float: right;
+    border:1px solid #bbb;
+    border-radius:20px;
+    font-size:20px;
+    font-weight:bolder;
+    background-color:rgb(146, 146, 146);
+    opacity: 0.9;
+    color:white;
+    margin-bottom:20px;
+}
+.update_container div h3,
+.update_container div form,
+.update_container div label,
+.update_container div span{
+    background-color:lightgray;
+}
+
+.update_container div a button#deleteBtn{
+    float:left;
+    border:1px solid #bbb;
+    border-radius:20px;
+    font-size:20px;
+    font-weight:bolder;
+    background-color:rgb(146, 146, 146);
+    opacity: 0.9;
+    color:white;
+    margin-left: 10px;
+}
+
+.signUp_container div form button#create[type=submit]:hover,
+.update_container div form button#update[type=submit]:hover,
+.update_container div a button#deleteBtn:hover {
+    animation-name: shine;
+    animation-duration: 350ms;
+    cursor: pointer;
+}
+
+.signUp_container div form button#create[type="submit"]:active,
+.update_container div form button#update[type=submit]:active,
+.update_container div a button#deleteBtn:active{
+ opacity:0.4;
+}
+.signUp_container div label,.update_container div label{
+    cursor:pointer;
+}
+#title{
+ font-family:'Lily Script One', cursive;
+ font-size:35px;
+ font-weight:bolder;
+ text-align:center;
+ color:rgb(80,80,80);
+}
+/* media query */
+@media only screen and (max-width: 1000px) {
+    .signUp_container,.update_container{
+        display: grid;
+        background-color:lightgray;
+        grid-template-columns:1fr;
+        grid-template-areas: 
+        "r";
+       margin: auto;
+    }
+}  
